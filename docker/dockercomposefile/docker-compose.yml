@@ -1,6 +1,11 @@
-version: '2'
-    services:
-      mongodb:
-        image: mongo:latest
-        volumes:
-          - ./<your-local-path>:/data/db
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - 27017:27017
+volumes:
+  mongodata:      
