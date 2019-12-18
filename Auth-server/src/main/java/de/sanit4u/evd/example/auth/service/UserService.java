@@ -4,6 +4,6 @@ import de.sanit4u.evd.example.auth.domain.User;
 
 public interface UserService {
 
-	void create(User user);
+	User create(User user);
 
 }

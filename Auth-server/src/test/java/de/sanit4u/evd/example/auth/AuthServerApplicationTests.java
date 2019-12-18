@@ -1,6 +1,6 @@
 package de.sanit4u.evd.example.auth;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest

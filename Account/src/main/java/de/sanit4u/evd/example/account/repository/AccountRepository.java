@@ -8,6 +8,6 @@ import de.sanit4u.evd.example.account.domain.Account;
 @Repository
 public interface AccountRepository extends MongoRepository<Account, String> {
 
-	Account findByName(String name);
+	Account findByUserName(String userName);
 
 }

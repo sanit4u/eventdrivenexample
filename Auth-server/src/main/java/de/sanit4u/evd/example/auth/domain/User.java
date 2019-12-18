@@ -1,24 +1,45 @@
 package de.sanit4u.evd.example.auth.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Document(collection = "users")
+import de.sanit4u.evd.example.auth.enums.CustomAuthorities;
+
+@Document(collection = "user")
 public class User implements UserDetails {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7987548585924206112L;
-
 	@Id
+	private String id;
+
+	@Indexed(unique = true)
 	private String username;
 
 	private String password;
+
+	private boolean activated;
+
+	private String activationKey;
+
+	private String resetPasswordKey;
+
+	private Set<CustomAuthorities> authorities = new HashSet<>();
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	@Override
 	public String getPassword() {
@@ -32,7 +53,7 @@ public class User implements UserDetails {
 
 	@Override
 	public List<GrantedAuthority> getAuthorities() {
-		return null;
+		return new ArrayList<>(authorities);
 	}
 
 	public void setUsername(String username) {
@@ -60,6 +81,50 @@ public class User implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return activated;
 	}
+
+	public boolean isActivated() {
+		return activated;
+	}
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
+
+	public String getActivationKey() {
+		return activationKey;
+	}
+
+	public void setActivationKey(String activationKey) {
+		this.activationKey = activationKey;
+	}
+
+	public String getResetPasswordKey() {
+		return resetPasswordKey;
+	}
+
+	public void setResetPasswordKey(String resetPasswordKey) {
+		this.resetPasswordKey = resetPasswordKey;
+	}
+
+	public void setAuthorities(Set<CustomAuthorities> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		User user = (User) o;
+		return Objects.equals(id, user.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
 }

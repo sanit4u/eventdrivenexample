@@ -1,0 +1,41 @@
+security:
+  oauth2:
+    client:
+      clientId: account-service
+#      clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+      clientSecret: 1234
+      # auth-server in case of docker deployment of the service
+      accessTokenUri: http://localhost:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+    resource:
+      user-info-uri: BUGFIX   
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      username: oauth-user
+      password: password
+      database: eventdriven_account
+      port: 27017
+  
+    
+server:
+  servlet:
+    context-path: /accounts
+  port: 6000
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  metrics:
+    enabled: true
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 12000  

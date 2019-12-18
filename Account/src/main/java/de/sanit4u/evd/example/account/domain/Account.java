@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Account {
 
 	@Id
-	private String name;
+	private String userName;
 
 	private Date lastSeen;
 
@@ -27,12 +27,12 @@ public class Account {
 	@Length(min = 0, max = 20_000)
 	private String note;
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Date getLastSeen() {
