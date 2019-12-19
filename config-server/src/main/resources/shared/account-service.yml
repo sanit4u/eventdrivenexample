@@ -28,14 +28,14 @@ server:
 
 feign:
   hystrix:
-    enabled: true
+    enabled: false
 
-hystrix:
-  metrics:
-    enabled: true
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 12000  
+#hystrix:
+#  metrics:
+#    enabled: true
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 12000  
