@@ -50,5 +50,16 @@ public class InitialValuesChangeLog {
 
 		mongoTemplate.save(accountServiceClientDetails);
 	}
+	
+	@ChangeSet(order = "004", id = "insertNotificationServiceClientDetails", author = "Santosh")
+	public void insertNotificationServiceClientDetails(MongoTemplate mongoTemplate) {
+		AuthClientDetails notificationServiceClientDetails = new AuthClientDetails();
+		notificationServiceClientDetails.setClientId("notification-service");
+		notificationServiceClientDetails.setClientSecret("$2a$10$fWNTd3H.u7G/aNROVQSifebOkZ2xzU5nUPOCI2Ld42M8E25/ljJqK");
+		notificationServiceClientDetails.setScopes("server");
+		notificationServiceClientDetails.setGrantTypes("refresh_token,client_credentials");
+		
+		mongoTemplate.save(notificationServiceClientDetails);
+	}
 
 }

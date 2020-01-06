@@ -1,3 +1,15 @@
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
 zuul:
   ignoredServices: '*'
   host:
@@ -5,9 +17,9 @@ zuul:
     socket-timeout-millis: 20000
 
   routes:
-    auth-service:
+    auth-server:
       path: /uaa/** #path that will be intercepted
-      url: auth-service #which url the request will e mapped to
+      url: http://auth-server:5000 #which url the request will be mapped to
       stripPrefix: false #if zuul should replace the "/uaa/" segment
       sensitiveHeaders:
 

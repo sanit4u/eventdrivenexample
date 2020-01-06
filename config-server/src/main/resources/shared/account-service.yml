@@ -9,9 +9,30 @@ security:
       grant-type: client_credentials
       scope: server
     resource:
-      user-info-uri: BUGFIX   
-
+      user-info-uri: BUGFIX
+         
 spring:
+  cloud:
+    stream:
+      default-binder: kafka
+      bindings:
+        accountcreateoutput:
+           group: output-group-1
+           destination: accountcreated
+           producer:
+             header-mode: headers
+      kafka:
+        binder:
+          brokers: localhost:5050
+          configuration:
+            commit:
+              interval:
+                 mms: 1000  
+            default:
+              key:
+                serde: org.apache.kafka.common.serialization.Serdes$StringSerde  
+              value:
+                serde: org.apache.kafka.common.serialization.Serdes$StringSerde  
   data:
     mongodb:
       host: localhost
@@ -25,17 +46,3 @@ server:
   servlet:
     context-path: /accounts
   port: 6000
-
-feign:
-  hystrix:
-    enabled: false
-
-#hystrix:
-#  metrics:
-#    enabled: true
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 12000  

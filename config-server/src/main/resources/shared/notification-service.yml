@@ -1,0 +1,79 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      username: oauth-user
+      password: password
+      database: eventdriven_notification
+      port: 27017
+  cloud:
+    stream:
+      default-binder: kafka
+      bindings:
+        accountcreateinput:
+           group: input-group-1
+           destination: accountcreated
+           producer:
+             header-mode: headers
+        processedaccountcreateoutput:
+           group: output-group-1
+           destination: welcomeemail
+           producer:
+             header-mode: headers     
+      kafka:
+        binder:
+          brokers: localhost:5050
+          configuration:
+            commit:
+              interval:
+                 mms: 1000  
+            default:
+              key:
+                serde: org.apache.kafka.common.serialization.Serdes$StringSerde  
+              value:
+                serde: org.apache.kafka.common.serialization.Serdes$StringSerde  
+
+security:
+  oauth2:
+    client:
+      clientId: notification-service
+#      clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+      clientSecret: 1234
+      # auth-server in case of docker deployment of the service
+      accessTokenUri: http://localhost:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+    resource:
+      user-info-uri: BUGFIX
+
+    
+server:
+  servlet:
+    context-path: /notifications
+  port: 8000
+
+remind:
+  cron: 0 0 0 * * *
+  email:
+    text: "Hey, {0}! We''ve missed you here. \r\n\r\nCheers,\r\nteam"
+    subject: Friendly reminder
+
+welcome:
+  cron: 0 0 12 * * *
+  email:
+    text: "Hello, {0}. Thank you for creating an account.\r\n\r\nCheers,\r\nteam"
+    subject: Account backup
+
+
+
+#spring:
+#  cloud:
+#    stream:
+#      bindings:
+#        input:
+#          destination: appointmentcreated
+#  rabbitmq:
+#    broker-url: tcp://127.0.0.1:5672
+#    username:
+#    password:    
+  
