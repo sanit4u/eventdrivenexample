@@ -3,7 +3,7 @@
 2. This repository is not finished yet.
 3. futher, will integrate credit card data services with architecture.
 
-##TroubleShooting
+## TroubleShooting
 1. mongodb , mongobee integration problem
 :  query failed with error code 13 and error message 'not authorized on to execute command
 
